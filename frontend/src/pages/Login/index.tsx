@@ -1,15 +1,33 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
+import API from '@/services/api';
 
 export default function Login() {
+  const onFinish = async (values: any) => {
+    try {
+      await API.post('/auth/login', values);
+      message.success('Đăng nhập thành công');
+    } catch {
+      message.error('Đăng nhập thất bại');
+    }
+  };
+
   return (
-    <Form layout="vertical">
-      <Form.Item label="Email">
-        <Input />
-      </Form.Item>
-      <Form.Item label="Mật khẩu">
-        <Input.Password />
-      </Form.Item>
-      <Button type="primary">Đăng nhập</Button>
-    </Form>
+    <div style={{ width: 400, margin: '50px auto' }}>
+      <h2>Đăng nhập</h2>
+
+      <Form onFinish={onFinish}>
+        <Form.Item name="email">
+          <Input placeholder="Email" />
+        </Form.Item>
+
+        <Form.Item name="password">
+          <Input.Password placeholder="Mật khẩu" />
+        </Form.Item>
+
+        <Button type="primary" htmlType="submit" block>
+          Đăng nhập
+        </Button>
+      </Form>
+    </div>
   );
 }

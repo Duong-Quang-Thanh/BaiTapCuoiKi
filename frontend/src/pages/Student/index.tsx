@@ -1,25 +1,46 @@
-import { Form, InputNumber, Select, Upload, Button } from 'antd';
+import { Button, Form, Input, InputNumber, message } from 'antd';
+import API from '@/services/api';
 
 export default function StudentPage() {
+  const onFinish = async (values: any) => {
+    try {
+      await API.post('/applications', values);
+
+      message.success('Nộp hồ sơ thành công');
+    } catch {
+      message.error('Lỗi nộp hồ sơ');
+    }
+  };
+
   return (
-    <Form layout="vertical">
-      <Form.Item label="Trường">
-        <Select />
-      </Form.Item>
+    <div style={{ width: 600, margin: '40px auto' }}>
+      <h2>Nộp hồ sơ xét tuyển</h2>
 
-      <Form.Item label="Ngành">
-        <Select />
-      </Form.Item>
+      <Form layout="vertical" onFinish={onFinish}>
+        <Form.Item name="user_id" label="Mã sinh viên">
+          <Input />
+        </Form.Item>
 
-      <Form.Item label="Điểm thi">
-        <InputNumber />
-      </Form.Item>
+        <Form.Item name="university_id" label="Trường">
+          <Input />
+        </Form.Item>
 
-      <Form.Item label="Minh chứng">
-        <Upload />
-      </Form.Item>
+        <Form.Item name="major_id" label="Ngành">
+          <Input />
+        </Form.Item>
 
-      <Button type="primary">Nộp hồ sơ</Button>
-    </Form>
+        <Form.Item name="score" label="Điểm">
+          <InputNumber style={{ width: '100%' }} />
+        </Form.Item>
+
+        <Form.Item name="note" label="Ghi chú">
+          <Input.TextArea rows={4} />
+        </Form.Item>
+
+        <Button type="primary" htmlType="submit">
+          Nộp hồ sơ
+        </Button>
+      </Form>
+    </div>
   );
 }
