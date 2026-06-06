@@ -10,51 +10,97 @@ import {
   useState,
 } from 'react';
 
+import Statistics from './Statistics';
 import API from '@/services/api';
+
+<Button
+  type="primary"
+  onClick={() => {
+    window.open(
+      'http://127.0.0.1:8001/admin/export'
+    );
+  }}
+>
+  Xuất Excel
+</Button>
 
 export default function Admin() {
   const [data, setData] =
     useState<any[]>([]);
+
+  const [stats, setStats] =
+    useState<any>({
+      approved: 0,
+      rejected: 0,
+      pending: 0,
+      total: 0,
+    });
 
   useEffect(() => {
     loadData();
   }, []);
 
   const loadData = async () => {
-    const res =
-      await API.get(
+    try {
+      const res = await API.get(
         '/applications',
       );
 
-    setData(res.data);
+      setData(res.data);
+
+      const statRes =
+        await API.get(
+          '/admin/statistics',
+        );
+
+      setStats(statRes.data);
+    } catch (error) {
+      console.error(error);
+
+      message.error(
+        'Không thể tải dữ liệu',
+      );
+    }
   };
 
   const approve = async (
     id: number,
   ) => {
-    await API.put(
-      `/applications/${id}/approve`,
-    );
+    try {
+      await API.put(
+        `/applications/${id}/approve`,
+      );
 
-    message.success(
-      'Đã duyệt hồ sơ',
-    );
+      message.success(
+        'Đã duyệt hồ sơ',
+      );
 
-    loadData();
+      loadData();
+    } catch {
+      message.error(
+        'Lỗi duyệt hồ sơ',
+      );
+    }
   };
 
   const reject = async (
     id: number,
   ) => {
-    await API.put(
-      `/applications/${id}/reject`,
-    );
+    try {
+      await API.put(
+        `/applications/${id}/reject`,
+      );
 
-    message.success(
-      'Đã từ chối hồ sơ',
-    );
+      message.success(
+        'Đã từ chối hồ sơ',
+      );
 
-    loadData();
+      loadData();
+    } catch {
+      message.error(
+        'Lỗi từ chối hồ sơ',
+      );
+    }
   };
 
   const columns = [
@@ -69,7 +115,8 @@ export default function Admin() {
     },
     {
       title: 'Ngành',
-      dataIndex: 'major_name',
+      dataIndex:
+        'major_name',
     },
     {
       title: 'Điểm',
@@ -81,13 +128,17 @@ export default function Admin() {
     },
     {
       title: 'Minh chứng',
-      render: (_: any, row: any) => (
+      render: (
+        _: any,
+        row: any,
+      ) => (
         <a
           href={
             'http://127.0.0.1:8001/uploads/' +
             row.document_path
           }
           target="_blank"
+          rel="noreferrer"
         >
           Xem file
         </a>
@@ -95,7 +146,10 @@ export default function Admin() {
     },
     {
       title: 'Thao tác',
-      render: (_: any, row: any) => (
+      render: (
+        _: any,
+        row: any,
+      ) => (
         <Space>
           <Button
             type="primary"
@@ -120,10 +174,35 @@ export default function Admin() {
   ];
 
   return (
-    <div style={{ padding: 20 }}>
+    <div
+      style={{
+        padding: 20,
+      }}
+    >
       <h2>
         Dashboard Admin
       </h2>
+
+      <div
+        style={{
+          marginBottom: 20,
+        }}
+      >
+        <Button
+          type="primary"
+          onClick={() => {
+            window.open(
+              'http://127.0.0.1:8001/admin/export'
+            );
+          }}
+        >
+          Xuất Excel
+        </Button>
+      </div>
+
+      <Statistics
+        data={stats}
+      />
 
       <Table
         rowKey="id"

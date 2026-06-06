@@ -9,6 +9,7 @@
     },
     "dependencies": {
       "@ant-design/icons": "^6.2.5",
+      "@ant-design/plots": "^2.6.8",
       "antd": "^5.0.0",
       "axios": "^1.6.0",
       "react": "^18.3.1",
@@ -107,6 +108,20 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
@@ -145,7 +160,24 @@
             3,
             3,
             1,
-            2
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            3,
+            1,
+            2,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
           ]
         },
         "register": 0
@@ -179,7 +211,21 @@
             7,
             13,
             15,
-            13
+            13,
+            9,
+            15,
+            7,
+            10,
+            5,
+            17,
+            5,
+            11,
+            11,
+            12,
+            7,
+            15,
+            19,
+            11
           ]
         },
         "register": 22
@@ -206,6 +252,20 @@
             0,
             0,
             1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -248,10 +308,38 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "onCheckCode": [
             1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1318,7 +1406,21 @@
             1,
             1,
             2,
-            1
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            3,
+            1,
+            0
           ],
           "addRuntimePlugin": [
             0,
@@ -1335,6 +1437,20 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
             0
           ]
         },
@@ -1423,9 +1539,51 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "addEntryImports": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1503,9 +1661,51 @@
             13,
             21,
             28,
-            16
+            16,
+            11,
+            40,
+            9,
+            12,
+            8,
+            31,
+            7,
+            12,
+            9,
+            13,
+            10,
+            29,
+            26,
+            8
           ],
           "addPolyfillImports": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1580,6 +1780,34 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
@@ -1598,6 +1826,20 @@
         "hooks": {
           "onGenerateFiles": [
             105,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1668,7 +1910,21 @@
             0,
             1,
             1,
-            1
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0
           ],
           "addBeforeMiddlewares": [
             0
@@ -1717,6 +1973,34 @@
             56,
             2,
             23,
+            1,
+            12,
+            1,
+            27,
+            3,
+            12,
+            1,
+            19,
+            2,
+            16,
+            1,
+            38,
+            3,
+            13,
+            0,
+            11,
+            1,
+            12,
+            1,
+            9,
+            0,
+            11,
+            1,
+            25,
+            2,
+            35,
+            3,
+            12,
             1
           ]
         },
@@ -1761,7 +2045,21 @@
             0,
             0,
             2,
-            1
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
           ],
           "onBeforeCompiler": [
             10
@@ -1807,7 +2105,21 @@
             10,
             10,
             20,
-            15
+            15,
+            5,
+            12,
+            5,
+            10,
+            9,
+            13,
+            6,
+            4,
+            6,
+            5,
+            6,
+            10,
+            12,
+            5
           ]
         },
         "register": 2
@@ -1906,7 +2218,21 @@
             0,
             1,
             3,
-            1
+            1,
+            0,
+            3,
+            1,
+            0,
+            1,
+            2,
+            0,
+            1,
+            0,
+            1,
+            1,
+            2,
+            1,
+            0
           ]
         },
         "register": 1
@@ -2488,7 +2814,7 @@
       "file": "@/pages/Admin/index.tsx",
       "id": "4",
       "absPath": "/admin",
-      "__content": "import { useEffect, useState } from 'react';\r\nimport { Card, Col, Row } from 'antd';\r\nimport API from '@/services/api';\r\n\r\nexport default function AdminPage() {\r\n  const [data, setData] = useState<any>({});\r\n\r\n  useEffect(() => {\r\n    loadData();\r\n  }, []);\r\n\r\n  const loadData = async () => {\r\n    const res = await API.get('/admin/dashboard');\r\n    setData(res.data);\r\n  };\r\n\r\n  return (\r\n    <div style={{ padding: 30 }}>\r\n      <h2>Dashboard quản trị</h2>\r\n\r\n      <Row gutter={16}>\r\n        <Col span={6}>\r\n          <Card title=\"Tổng hồ sơ\">\r\n            {data.total_applications}\r\n          </Card>\r\n        </Col>\r\n\r\n        <Col span={6}>\r\n          <Card title=\"Đã duyệt\">\r\n            {data.approved}\r\n          </Card>\r\n        </Col>\r\n\r\n        <Col span={6}>\r\n          <Card title=\"Từ chối\">\r\n            {data.rejected}\r\n          </Card>\r\n        </Col>\r\n\r\n        <Col span={6}>\r\n          <Card title=\"Chờ duyệt\">\r\n            {data.pending}\r\n          </Card>\r\n        </Col>\r\n      </Row>\r\n    </div>\r\n  );\r\n}",
+      "__content": "import {\r\n  Table,\r\n  Button,\r\n  Space,\r\n  message,\r\n} from 'antd';\r\n\r\nimport {\r\n  useEffect,\r\n  useState,\r\n} from 'react';\r\n\r\nimport { Button } from 'antd';\r\nimport Statistics from './Statistics';\r\nimport API from '@/services/api';\r\n\r\n<Button\r\n  type=\"primary\"\r\n  onClick={() => {\r\n    window.open(\r\n      'http://127.0.0.1:8001/admin/export'\r\n    );\r\n  }}\r\n>\r\n  Xuất Excel\r\n</Button>\r\n\r\nexport default function Admin() {\r\n  const [data, setData] =\r\n    useState<any[]>([]);\r\n\r\n  const [stats, setStats] =\r\n    useState<any>({\r\n      approved: 0,\r\n      rejected: 0,\r\n      pending: 0,\r\n      total: 0,\r\n    });\r\n\r\n  useEffect(() => {\r\n    loadData();\r\n  }, []);\r\n\r\n  const loadData = async () => {\r\n    try {\r\n      const res = await API.get(\r\n        '/applications',\r\n      );\r\n\r\n      setData(res.data);\r\n\r\n      const statRes =\r\n        await API.get(\r\n          '/admin/statistics',\r\n        );\r\n\r\n      setStats(statRes.data);\r\n    } catch (error) {\r\n      console.error(error);\r\n\r\n      message.error(\r\n        'Không thể tải dữ liệu',\r\n      );\r\n    }\r\n  };\r\n\r\n  const approve = async (\r\n    id: number,\r\n  ) => {\r\n    try {\r\n      await API.put(\r\n        `/applications/${id}/approve`,\r\n      );\r\n\r\n      message.success(\r\n        'Đã duyệt hồ sơ',\r\n      );\r\n\r\n      loadData();\r\n    } catch {\r\n      message.error(\r\n        'Lỗi duyệt hồ sơ',\r\n      );\r\n    }\r\n  };\r\n\r\n  const reject = async (\r\n    id: number,\r\n  ) => {\r\n    try {\r\n      await API.put(\r\n        `/applications/${id}/reject`,\r\n      );\r\n\r\n      message.success(\r\n        'Đã từ chối hồ sơ',\r\n      );\r\n\r\n      loadData();\r\n    } catch {\r\n      message.error(\r\n        'Lỗi từ chối hồ sơ',\r\n      );\r\n    }\r\n  };\r\n\r\n  const columns = [\r\n    {\r\n      title: 'ID',\r\n      dataIndex: 'id',\r\n    },\r\n    {\r\n      title: 'Trường',\r\n      dataIndex:\r\n        'university_name',\r\n    },\r\n    {\r\n      title: 'Ngành',\r\n      dataIndex:\r\n        'major_name',\r\n    },\r\n    {\r\n      title: 'Điểm',\r\n      dataIndex: 'score',\r\n    },\r\n    {\r\n      title: 'Trạng thái',\r\n      dataIndex: 'status',\r\n    },\r\n    {\r\n      title: 'Minh chứng',\r\n      render: (\r\n        _: any,\r\n        row: any,\r\n      ) => (\r\n        <a\r\n          href={\r\n            'http://127.0.0.1:8001/uploads/' +\r\n            row.document_path\r\n          }\r\n          target=\"_blank\"\r\n          rel=\"noreferrer\"\r\n        >\r\n          Xem file\r\n        </a>\r\n      ),\r\n    },\r\n    {\r\n      title: 'Thao tác',\r\n      render: (\r\n        _: any,\r\n        row: any,\r\n      ) => (\r\n        <Space>\r\n          <Button\r\n            type=\"primary\"\r\n            onClick={() =>\r\n              approve(row.id)\r\n            }\r\n          >\r\n            Duyệt\r\n          </Button>\r\n\r\n          <Button\r\n            danger\r\n            onClick={() =>\r\n              reject(row.id)\r\n            }\r\n          >\r\n            Từ chối\r\n          </Button>\r\n        </Space>\r\n      ),\r\n    },\r\n  ];\r\n\r\n  return (\r\n    <div\r\n      style={{\r\n        padding: 20,\r\n      }}\r\n    >\r\n      <h2>\r\n        Dashboard Admin\r\n      </h2>\r\n\r\n      <div\r\n        style={{\r\n          marginBottom: 20,\r\n        }}\r\n      >\r\n        <Button\r\n          type=\"primary\"\r\n          onClick={() => {\r\n            window.open(\r\n              'http://127.0.0.1:8001/admin/export'\r\n            );\r\n          }}\r\n        >\r\n          Xuất Excel\r\n        </Button>\r\n      </div>\r\n\r\n      <Statistics\r\n        data={stats}\r\n      />\r\n\r\n      <Table\r\n        rowKey=\"id\"\r\n        columns={columns}\r\n        dataSource={data}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
       "__absFile": "C:/Users/GIGABYTE/admission-system/frontend/src/pages/Admin/index.tsx"
     }
@@ -3734,8 +4060,24 @@
             ],
             "format": "esm"
           },
+          "src/pages/Admin/Statistics.tsx": {
+            "bytes": 774,
+            "imports": [
+              {
+                "path": "@ant-design/plots",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              }
+            ],
+            "format": "esm"
+          },
           "src/pages/Admin/index.tsx": {
-            "bytes": 2240,
+            "bytes": 3581,
             "imports": [
               {
                 "path": "antd",
@@ -3746,6 +4088,11 @@
                 "path": "react",
                 "kind": "import-statement",
                 "external": true
+              },
+              {
+                "path": "src/pages/Admin/Statistics.tsx",
+                "kind": "import-statement",
+                "original": "./Statistics"
               },
               {
                 "path": "src/services/api.ts",
@@ -4028,6 +4375,16 @@
               },
               {
                 "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/plots",
                 "kind": "import-statement",
                 "external": true
               },
@@ -5197,8 +5554,11 @@
               "src/pages/Student/index.tsx": {
                 "bytesInOutput": 3626
               },
+              "src/pages/Admin/Statistics.tsx": {
+                "bytesInOutput": 844
+              },
               "src/pages/Admin/index.tsx": {
-                "bytesInOutput": 2427
+                "bytesInOutput": 3802
               },
               "src/.umi/core/polyfill.ts": {
                 "bytesInOutput": 23745
@@ -5234,7 +5594,7 @@
                 "bytesInOutput": 867
               }
             },
-            "bytes": 41769
+            "bytes": 44023
           }
         }
       }
@@ -7616,6 +7976,22 @@
         }
       ],
       "C:\\Users\\GIGABYTE\\admission-system\\frontend\\src\\app.tsx": [],
+      "C:\\Users\\GIGABYTE\\admission-system\\frontend\\src\\pages\\Admin\\Statistics.tsx": [
+        {
+          "end": 41,
+          "importKind": "value",
+          "source": "@ant-design/plots",
+          "specifiers": [
+            {
+              "imported": "Pie",
+              "local": "Pie",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 1,
+          "type": "ImportDeclaration"
+        }
+      ],
       "C:\\Users\\GIGABYTE\\admission-system\\frontend\\src\\pages\\Admin\\index.tsx": [
         {
           "end": 68,
@@ -7666,7 +8042,20 @@
           "type": "ImportDeclaration"
         },
         {
-          "end": 161,
+          "end": 166,
+          "importKind": "value",
+          "source": "./Statistics",
+          "specifiers": [
+            {
+              "local": "Statistics",
+              "type": "ImportDefaultSpecifier"
+            }
+          ],
+          "start": 128,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 201,
           "importKind": "value",
           "source": "@/services/api",
           "specifiers": [
@@ -7675,7 +8064,7 @@
               "type": "ImportDefaultSpecifier"
             }
           ],
-          "start": 128,
+          "start": 168,
           "type": "ImportDeclaration"
         }
       ],
