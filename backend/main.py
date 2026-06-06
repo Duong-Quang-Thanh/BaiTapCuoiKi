@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers import auth
 from routers import application
 from routers import admin
-
+from fastapi.staticfiles import StaticFiles
+import os
 
 app = FastAPI()
 
@@ -28,3 +29,12 @@ def root():
     return {
         "message": "Admission System API Running"
     }
+
+if not os.path.exists("uploads"):
+    os.makedirs("uploads")
+
+app.mount(
+    "/uploads",
+    StaticFiles(directory="uploads"),
+    name="uploads"
+)
