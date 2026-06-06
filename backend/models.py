@@ -1,20 +1,28 @@
 from sqlalchemy import *
 from database import Base
+from sqlalchemy import Text
 
-class User(Base):
-    __tablename__ = "users"
+class Application(Base):
+    __tablename__ = "applications"
 
-    id = Column(Integer, primary_key=True)
-
-    full_name = Column(String(255))
-
-    email = Column(
-        String(255),
-        unique=True
+    id = Column(
+        Integer,
+        primary_key=True
     )
 
-    password = Column(String(255))
+    user_id = Column(Integer)
 
-    role = Column(String(50))
+    university_name =Column(String(255))
 
-    phone = Column(String(20))
+    major_name =Column(String(255))
+
+    score = Column(Float)
+
+    document_path =Column(String(255))
+
+    status = Column(
+        String(50),
+        default="pending"
+    )
+
+    note = Column(Text)

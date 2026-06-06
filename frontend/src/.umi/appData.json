@@ -8,6 +8,7 @@
       "build": "umi build"
     },
     "dependencies": {
+      "@ant-design/icons": "^6.2.5",
       "antd": "^5.0.0",
       "axios": "^1.6.0",
       "react": "^18.3.1",
@@ -105,6 +106,7 @@
             0,
             0,
             0,
+            0,
             0
           ]
         },
@@ -141,7 +143,9 @@
             1,
             3,
             3,
-            3
+            3,
+            1,
+            2
           ]
         },
         "register": 0
@@ -174,7 +178,8 @@
             16,
             7,
             13,
-            15
+            15,
+            13
           ]
         },
         "register": 22
@@ -201,6 +206,7 @@
             0,
             0,
             1,
+            0,
             0,
             0,
             0,
@@ -240,10 +246,13 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ],
           "onCheckCode": [
             1,
+            0,
             0,
             0,
             0,
@@ -1308,9 +1317,11 @@
             1,
             1,
             1,
-            2
+            2,
+            1
           ],
           "addRuntimePlugin": [
+            0,
             0,
             0,
             0,
@@ -1411,9 +1422,12 @@
             0,
             0,
             0,
+            0,
             0
           ],
           "addEntryImports": [
+            0,
+            0,
             0,
             0,
             0,
@@ -1488,9 +1502,12 @@
             19,
             13,
             21,
-            28
+            28,
+            16
           ],
           "addPolyfillImports": [
+            0,
+            0,
             0,
             0,
             0,
@@ -1561,6 +1578,8 @@
             0,
             0,
             0,
+            0,
+            0,
             0
           ]
         },
@@ -1579,6 +1598,7 @@
         "hooks": {
           "onGenerateFiles": [
             105,
+            0,
             0,
             0,
             0,
@@ -1647,6 +1667,7 @@
             0,
             0,
             1,
+            1,
             1
           ],
           "addBeforeMiddlewares": [
@@ -1694,7 +1715,9 @@
             23,
             1,
             56,
-            2
+            2,
+            23,
+            1
           ]
         },
         "register": 5
@@ -1737,7 +1760,8 @@
             1,
             0,
             0,
-            2
+            2,
+            1
           ],
           "onBeforeCompiler": [
             10
@@ -1782,7 +1806,8 @@
             10,
             10,
             10,
-            20
+            20,
+            15
           ]
         },
         "register": 2
@@ -1880,7 +1905,8 @@
             1,
             0,
             1,
-            3
+            3,
+            1
           ]
         },
         "register": 1
@@ -2453,7 +2479,7 @@
       "file": "@/pages/Student/index.tsx",
       "id": "3",
       "absPath": "/student",
-      "__content": "import { Button, Form, Input, InputNumber, message } from 'antd';\r\nimport API from '@/services/api';\r\n\r\nexport default function StudentPage() {\r\n  const onFinish = async (values: any) => {\r\n    try {\r\n      await API.post('/applications', values);\r\n\r\n      message.success('Nộp hồ sơ thành công');\r\n    } catch {\r\n      message.error('Lỗi nộp hồ sơ');\r\n    }\r\n  };\r\n\r\n  return (\r\n    <div style={{ width: 600, margin: '40px auto' }}>\r\n      <h2>Nộp hồ sơ xét tuyển</h2>\r\n\r\n      <Form layout=\"vertical\" onFinish={onFinish}>\r\n        <Form.Item name=\"user_id\" label=\"Mã sinh viên\">\r\n          <Input />\r\n        </Form.Item>\r\n\r\n        <Form.Item name=\"university_id\" label=\"Trường\">\r\n          <Input />\r\n        </Form.Item>\r\n\r\n        <Form.Item name=\"major_id\" label=\"Ngành\">\r\n          <Input />\r\n        </Form.Item>\r\n\r\n        <Form.Item name=\"score\" label=\"Điểm\">\r\n          <InputNumber style={{ width: '100%' }} />\r\n        </Form.Item>\r\n\r\n        <Form.Item name=\"note\" label=\"Ghi chú\">\r\n          <Input.TextArea rows={4} />\r\n        </Form.Item>\r\n\r\n        <Button type=\"primary\" htmlType=\"submit\">\r\n          Nộp hồ sơ\r\n        </Button>\r\n      </Form>\r\n    </div>\r\n  );\r\n}",
+      "__content": "import {\r\n  Form,\r\n  Input,\r\n  InputNumber,\r\n  Button,\r\n  Upload,\r\n  message,\r\n} from 'antd';\r\n\r\nimport {\r\n  UploadOutlined,\r\n} from '@ant-design/icons';\r\n\r\nimport { useState } from 'react';\r\n\r\nimport API from '@/services/api';\r\n\r\nexport default function Student() {\r\n  const [filePath, setFilePath] =\r\n    useState('');\r\n\r\n  const uploadProps = {\r\n    customRequest: async (\r\n      options: any,\r\n    ) => {\r\n      const formData =\r\n        new FormData();\r\n\r\n      formData.append(\r\n        'file',\r\n        options.file,\r\n      );\r\n\r\n      const res =\r\n        await API.post(\r\n          '/applications/upload',\r\n          formData,\r\n        );\r\n\r\n      setFilePath(\r\n        res.data.file_path,\r\n      );\r\n\r\n      message.success(\r\n        'Upload thành công',\r\n      );\r\n    },\r\n  };\r\n\r\n  const onFinish = async (\r\n    values: any,\r\n  ) => {\r\n    try {\r\n      await API.post(\r\n        '/applications',\r\n        {\r\n          ...values,\r\n          document_path:\r\n            filePath,\r\n        },\r\n      );\r\n\r\n      message.success(\r\n        'Nộp hồ sơ thành công',\r\n      );\r\n    } catch {\r\n      message.error(\r\n        'Lỗi nộp hồ sơ',\r\n      );\r\n    }\r\n  };\r\n\r\n  return (\r\n    <div\r\n      style={{\r\n        width: 700,\r\n        margin: '30px auto',\r\n      }}\r\n    >\r\n      <h2>\r\n        Xin chào{' '}\r\n        {localStorage.getItem(\r\n          'name',\r\n        )}\r\n      </h2>\r\n\r\n      <Form\r\n        layout=\"vertical\"\r\n        onFinish={onFinish}\r\n      >\r\n        <Form.Item\r\n          label=\"Trường\"\r\n          name=\"university_name\"\r\n        >\r\n          <Input />\r\n        </Form.Item>\r\n\r\n        <Form.Item\r\n          label=\"Ngành\"\r\n          name=\"major_name\"\r\n        >\r\n          <Input />\r\n        </Form.Item>\r\n\r\n        <Form.Item\r\n          label=\"Điểm xét tuyển\"\r\n          name=\"score\"\r\n        >\r\n          <InputNumber\r\n            style={{\r\n              width: '100%',\r\n            }}\r\n          />\r\n        </Form.Item>\r\n\r\n        <Form.Item\r\n          label=\"Ghi chú\"\r\n          name=\"note\"\r\n        >\r\n          <Input.TextArea />\r\n        </Form.Item>\r\n\r\n        <Form.Item label=\"Minh chứng\">\r\n          <Upload {...uploadProps}>\r\n            <Button\r\n              icon={\r\n                <UploadOutlined />\r\n              }\r\n            >\r\n              Upload PDF/JPG\r\n            </Button>\r\n          </Upload>\r\n        </Form.Item>\r\n\r\n        <Button\r\n          type=\"primary\"\r\n          htmlType=\"submit\"\r\n        >\r\n          Nộp hồ sơ\r\n        </Button>\r\n      </Form>\r\n    </div>\r\n  );\r\n}",
       "__isJSFile": true,
       "__absFile": "C:/Users/GIGABYTE/admission-system/frontend/src/pages/Student/index.tsx"
     },
@@ -2488,8 +2514,8 @@
   },
   "mfsuBundleStatus": {
     "done": true,
-    "percent": 0.1144256098957737,
-    "status": "building"
+    "percent": 1,
+    "status": ""
   },
   "react": {
     "version": "18.3.1",
@@ -3709,15 +3735,15 @@
             "format": "esm"
           },
           "src/pages/Admin/index.tsx": {
-            "bytes": 1051,
+            "bytes": 2240,
             "imports": [
               {
-                "path": "react",
+                "path": "antd",
                 "kind": "import-statement",
                 "external": true
               },
               {
-                "path": "antd",
+                "path": "react",
                 "kind": "import-statement",
                 "external": true
               },
@@ -4011,12 +4037,12 @@
                 "external": true
               },
               {
-                "path": "react",
+                "path": "antd",
                 "kind": "import-statement",
                 "external": true
               },
               {
-                "path": "antd",
+                "path": "react",
                 "kind": "import-statement",
                 "external": true
               },
@@ -5172,7 +5198,7 @@
                 "bytesInOutput": 3626
               },
               "src/pages/Admin/index.tsx": {
-                "bytesInOutput": 1371
+                "bytesInOutput": 2427
               },
               "src/.umi/core/polyfill.ts": {
                 "bytesInOutput": 23745
@@ -5208,7 +5234,7 @@
                 "bytesInOutput": 867
               }
             },
-            "bytes": 40713
+            "bytes": 41769
           }
         }
       }
@@ -7592,7 +7618,36 @@
       "C:\\Users\\GIGABYTE\\admission-system\\frontend\\src\\app.tsx": [],
       "C:\\Users\\GIGABYTE\\admission-system\\frontend\\src\\pages\\Admin\\index.tsx": [
         {
-          "end": 45,
+          "end": 68,
+          "importKind": "value",
+          "source": "antd",
+          "specifiers": [
+            {
+              "imported": "Table",
+              "local": "Table",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Button",
+              "local": "Button",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Space",
+              "local": "Space",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "message",
+              "local": "message",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 1,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 124,
           "importKind": "value",
           "source": "react",
           "specifiers": [
@@ -7607,35 +7662,11 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 1,
+          "start": 72,
           "type": "ImportDeclaration"
         },
         {
-          "end": 85,
-          "importKind": "value",
-          "source": "antd",
-          "specifiers": [
-            {
-              "imported": "Card",
-              "local": "Card",
-              "type": "ImportSpecifier"
-            },
-            {
-              "imported": "Col",
-              "local": "Col",
-              "type": "ImportSpecifier"
-            },
-            {
-              "imported": "Row",
-              "local": "Row",
-              "type": "ImportSpecifier"
-            }
-          ],
-          "start": 47,
-          "type": "ImportDeclaration"
-        },
-        {
-          "end": 120,
+          "end": 161,
           "importKind": "value",
           "source": "@/services/api",
           "specifiers": [
@@ -7644,7 +7675,7 @@
               "type": "ImportDefaultSpecifier"
             }
           ],
-          "start": 87,
+          "start": 128,
           "type": "ImportDeclaration"
         }
       ],
