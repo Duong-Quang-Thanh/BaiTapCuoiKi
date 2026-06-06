@@ -4,7 +4,25 @@ import API from '@/services/api';
 export default function Login() {
   const onFinish = async (values: any) => {
     try {
-      await API.post('/auth/login', values);
+      const res = await API.post(
+  '/auth/login',
+  values
+);
+
+localStorage.setItem(
+  'token',
+  res.data.access_token
+);
+
+localStorage.setItem(
+  'role',
+  res.data.role
+);
+
+localStorage.setItem(
+  'name',
+  res.data.full_name
+);
       message.success('Đăng nhập thành công');
     } catch {
       message.error('Đăng nhập thất bại');
