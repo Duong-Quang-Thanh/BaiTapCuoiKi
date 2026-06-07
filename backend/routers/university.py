@@ -74,3 +74,37 @@ def delete_university(
     return {
         "message": "Đã xóa"
     }
+# Cập nhật trường
+@router.put("/{id}")
+def update_university(
+    id: int,
+    data: dict,
+    db: Session = Depends(get_db)
+):
+    university = (
+        db.query(University)
+        .filter(
+            University.id == id
+        )
+        .first()
+    )
+
+    if not university:
+        return {
+            "message": "Không tìm thấy"
+        }
+
+    university.name = data["name"]
+
+    university.description = (
+        data.get(
+            "description",
+            ""
+        )
+    )
+
+    db.commit()
+
+    return {
+        "message": "Đã cập nhật"
+    }

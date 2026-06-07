@@ -5,6 +5,11 @@ export default defineConfig({
 
   routes: [
     {
+  path:'/admin',
+  component:'@/pages/Admin',
+  access:'admin'
+    },
+    {
   path:
     '/admin/majors',
   component:

@@ -22,49 +22,58 @@ import API from '@/services/api';
 export default function Student() {
   const [filePath, setFilePath] =
     useState('');
+
   const [
-  universities,
-  setUniversities,
-] = useState<any[]>([]);
+    universities,
+    setUniversities,
+  ] = useState<any[]>([]);
+
   const [
     majors,
     setMajors,
   ] = useState<any[]>([]);
-  const loadMajors =
-  async (
-    universityId: number
-  ) => {
-    const res =
-      await API.get(
-        `/majors/university/${universityId}`
-      );
 
-    setMajors(
-      res.data
-    );
-  };
+  useEffect(() => {
+    loadUniversities();
+  }, []);
 
-useEffect(() => {
-  loadUniversities();
-}, []);
+  const loadUniversities =
+    async () => {
+      try {
+        const res =
+          await API.get(
+            '/universities'
+          );
 
-const loadUniversities =
-  async () => {
-    try {
-      const res =
-        await API.get(
-          '/universities'
+        setUniversities(
+          res.data
         );
+      } catch {
+        message.error(
+          'Không tải được danh sách trường'
+        );
+      }
+    };
 
-      setUniversities(
-        res.data
-      );
-    } catch {
-      message.error(
-        'Không tải được danh sách trường'
-      );
-    }
-  };
+  const loadMajors =
+    async (
+      universityId: number
+    ) => {
+      try {
+        const res =
+          await API.get(
+            `/majors/university/${universityId}`
+          );
+
+        setMajors(
+          res.data
+        );
+      } catch {
+        message.error(
+          'Không tải được ngành'
+        );
+      }
+    };
 
   const uploadProps = {
     customRequest: async (
@@ -93,7 +102,6 @@ const loadUniversities =
       );
     },
   };
-  
 
   const onFinish = async (
     values: any,
@@ -103,6 +111,11 @@ const loadUniversities =
         '/applications',
         {
           ...values,
+          user_id: Number(
+            localStorage.getItem(
+              'userId'
+            )
+          ),
           document_path:
             filePath,
         },
@@ -128,71 +141,81 @@ const loadUniversities =
       <h2>
         Xin chào{' '}
         {localStorage.getItem(
-          'name',
+          'name'
         )}
       </h2>
-      <Button
-  style={{
-    marginBottom: 20,
-  }}
-  onClick={() => {
-    window.location.href =
-      '/student/applications';
-  }}
->
-  Hồ sơ của tôi
-</Button>
+
+      <div
+        style={{
+          marginBottom: 20,
+          display: 'flex',
+          gap: 10,
+        }}
+      >
+        <Button
+          onClick={() => {
+            window.location.href =
+              '/student/applications';
+          }}
+        >
+          Hồ sơ của tôi
+        </Button>
+
+        <Button
+          danger
+          onClick={() => {
+            localStorage.clear();
+
+            window.location.href =
+              '/login';
+          }}
+        >
+          Đăng xuất
+        </Button>
+      </div>
 
       <Form
         layout="vertical"
         onFinish={onFinish}
       >
-      <Select
-  placeholder="Chọn trường"
-  onChange={(
-    value,
-    option: any
-  ) => {
-    loadMajors(
-      option.id
-    );
-  }}
-  options={universities.map(
-    (u: any) => ({
-      label: u.name,
-      value: u.name,
-      id: u.id,
-    })
-  )}
-/>
-  <Select
-  placeholder="Chọn trường"
-  options={universities.map(
-    (u: any) => ({
-      label: u.name,
-      value: u.id,
-    })
-  )}
-  onChange={(value) => {
-    loadMajors(value);
-  }}
-/>
-
+        <Form.Item
+          label="Trường"
+          name="university_name"
+        >
+          <Select
+            placeholder="Chọn trường"
+            options={universities.map(
+              (u: any) => ({
+                label: u.name,
+                value: u.name,
+                id: u.id,
+              })
+            )}
+            onChange={(
+              _,
+              option: any
+            ) => {
+              loadMajors(
+                option.id
+              );
+            }}
+          />
+        </Form.Item>
 
         <Form.Item
-  label="Ngành"
-  name="major_name"
->
-  <Select
-    placeholder="Chọn ngành"
-    options={majors.map(
-      (m: any) => ({
-        label: m.name,
-        value: m.name,
-      })
-    )}
-  />
-</Form.Item>
+          label="Ngành"
+          name="major_name"
+        >
+          <Select
+            placeholder="Chọn ngành"
+            options={majors.map(
+              (m: any) => ({
+                label: m.name,
+                value: m.name,
+              })
+            )}
+          />
+        </Form.Item>
 
         <Form.Item
           label="Điểm xét tuyển"
@@ -213,7 +236,9 @@ const loadUniversities =
         </Form.Item>
 
         <Form.Item label="Minh chứng">
-          <Upload {...uploadProps}>
+          <Upload
+            {...uploadProps}
+          >
             <Button
               icon={
                 <UploadOutlined />
@@ -234,28 +259,3 @@ const loadUniversities =
     </div>
   );
 }
-const [
-  majors,
-  setMajors,
-] = useState<any[]>([]);
-const loadMajors =
-  async (
-    universityId: number
-  ) => {
-    try {
-      const res =
-        await API.get(
-          `/majors/university/${universityId}`
-        );
-
-      setMajors(
-        res.data
-      );
-    } catch {
-      message.error(
-        'Không tải được ngành'
-      );
-    }
-  };
-
-  

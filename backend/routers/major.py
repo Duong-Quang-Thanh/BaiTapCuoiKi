@@ -102,3 +102,46 @@ def update_major(
     return {
         "message": "Updated"
     }
+@router.put("/{id}")
+def update_major(
+    id: int,
+    data: dict,
+    db: Session = Depends(get_db)
+):
+    major = (
+        db.query(Major)
+        .filter(
+            Major.id == id
+        )
+        .first()
+    )
+
+    major.name = data["name"]
+
+    db.commit()
+
+    return {
+        "message":
+        "Updated"
+    }
+@router.delete("/{id}")
+def delete_major(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    major = (
+        db.query(Major)
+        .filter(
+            Major.id == id
+        )
+        .first()
+    )
+
+    db.delete(major)
+
+    db.commit()
+
+    return {
+        "message":
+        "Deleted"
+    }

@@ -1,49 +1,38 @@
-import { Pie } from '@ant-design/plots';
+import { Card } from 'antd';
+import { Column } from '@ant-design/plots';
 
-export default function Statistics({
-  data,
-}: any) {
-  const chartData = [
+export default function Statistics(
+  props: any
+) {
+  const data = [
     {
       type: 'Approved',
       value:
-        data?.approved || 0,
+        props.data.approved,
     },
     {
       type: 'Rejected',
       value:
-        data?.rejected || 0,
+        props.data.rejected,
     },
     {
       type: 'Pending',
       value:
-        data?.pending || 0,
+        props.data.pending,
     },
   ];
 
-  const config = {
-    data: chartData,
-    angleField: 'value',
-    colorField: 'type',
-    height: 350,
-    label: {
-      text: 'value',
-    },
-    legend: {
-      color: {
-        title: false,
-        position: 'right',
-      },
-    },
-  };
-
   return (
-    <div
+    <Card
       style={{
-        marginBottom: 30,
+        marginBottom: 20,
       }}
     >
-      <Pie {...config} />
-    </div>
+      <Column
+        data={data}
+        xField="type"
+        yField="value"
+      />
+    </Card>
   );
 }

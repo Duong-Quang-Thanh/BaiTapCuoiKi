@@ -178,6 +178,7 @@ export default function Admin() {
           marginBottom: 20,
           display: 'flex',
           gap: 10,
+          flexWrap: 'wrap',
         }}
       >
         <Button
@@ -207,6 +208,18 @@ export default function Admin() {
           }}
         >
           Quản lý Ngành
+        </Button>
+
+        <Button
+          danger
+          onClick={() => {
+            localStorage.clear();
+
+            window.location.href =
+              '/login';
+          }}
+        >
+          Đăng xuất
         </Button>
       </div>
 
