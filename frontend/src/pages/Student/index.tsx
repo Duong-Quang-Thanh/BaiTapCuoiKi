@@ -93,6 +93,7 @@ const loadUniversities =
       );
     },
   };
+  
 
   const onFinish = async (
     values: any,
@@ -165,14 +166,17 @@ const loadUniversities =
   )}
 />
   <Select
-    placeholder="Chọn trường"
-    options={universities.map(
-      (u: any) => ({
-        label: u.name,
-        value: u.name,
-      })
-    )}
-  />
+  placeholder="Chọn trường"
+  options={universities.map(
+    (u: any) => ({
+      label: u.name,
+      value: u.id,
+    })
+  )}
+  onChange={(value) => {
+    loadMajors(value);
+  }}
+/>
 
 
         <Form.Item
@@ -230,3 +234,28 @@ const loadUniversities =
     </div>
   );
 }
+const [
+  majors,
+  setMajors,
+] = useState<any[]>([]);
+const loadMajors =
+  async (
+    universityId: number
+  ) => {
+    try {
+      const res =
+        await API.get(
+          `/majors/university/${universityId}`
+        );
+
+      setMajors(
+        res.data
+      );
+    } catch {
+      message.error(
+        'Không tải được ngành'
+      );
+    }
+  };
+
+  

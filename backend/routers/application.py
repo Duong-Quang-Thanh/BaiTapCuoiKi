@@ -1,26 +1,35 @@
 from fastapi import APIRouter
 from fastapi import UploadFile
 from fastapi import File
+from fastapi import Depends
+
+from sqlalchemy.orm import Session
 
 import shutil
 import uuid
-from sqlalchemy.orm import Session
-from fastapi import Depends
 
 from database import SessionLocal
-from models import Application
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+from models import (
+    Application,
+    User
+)
 
 router = APIRouter(
     prefix="/applications",
     tags=["Applications"]
 )
+
+
+def get_db():
+    db = SessionLocal()
+
+    try:
+        yield db
+
+    finally:
+        db.close()
+
 
 @router.post("/upload")
 async def upload_file(
@@ -35,7 +44,10 @@ async def upload_file(
 
     path = f"uploads/{filename}"
 
-    with open(path, "wb") as buffer:
+    with open(
+        path,
+        "wb"
+    ) as buffer:
         shutil.copyfileobj(
             file.file,
             buffer
@@ -44,6 +56,7 @@ async def upload_file(
     return {
         "file_path": filename
     }
+
 
 @router.post("/")
 def create_application(
@@ -57,42 +70,57 @@ def create_application(
         major_name=data["major_name"],
         score=data["score"],
         document_path=data["document_path"],
-        note=data.get("note", ""),
+        note=data.get(
+            "note",
+            ""
+        ),
         status="pending"
     )
 
     db.add(application)
+
     db.commit()
 
     return {
-        "message": "Nộp hồ sơ thành công"
+        "message":
+            "Nộp hồ sơ thành công"
     }
+
 
 @router.get("/")
 def get_applications(
     db: Session = Depends(get_db)
 ):
-    applications = db.query(
-        Application
-    ).all()
+
+    applications = (
+        db.query(Application)
+        .all()
+    )
 
     result = []
 
     for item in applications:
+
         result.append({
             "id": item.id,
-            "user_id": item.user_id,
+            "user_id":
+                item.user_id,
             "university_name":
                 item.university_name,
             "major_name":
                 item.major_name,
-            "score": item.score,
-            "status": item.status,
+            "score":
+                item.score,
+            "status":
+                item.status,
             "document_path":
-                item.document_path
+                item.document_path,
+            "note":
+                item.note
         })
 
     return result
+
 
 @router.put("/{id}/approve")
 def approve_application(
@@ -100,19 +128,29 @@ def approve_application(
     db: Session = Depends(get_db)
 ):
 
-    application = db.query(
-        Application
-    ).filter(
-        Application.id == id
-    ).first()
+    application = (
+        db.query(Application)
+        .filter(
+            Application.id == id
+        )
+        .first()
+    )
+
+    if not application:
+        return {
+            "message":
+                "Không tìm thấy hồ sơ"
+        }
 
     application.status = "approved"
 
     db.commit()
 
     return {
-        "message": "Đã duyệt"
+        "message":
+            "Đã duyệt"
     }
+
 
 @router.put("/{id}/reject")
 def reject_application(
@@ -120,24 +158,36 @@ def reject_application(
     db: Session = Depends(get_db)
 ):
 
-    application = db.query(
-        Application
-    ).filter(
-        Application.id == id
-    ).first()
+    application = (
+        db.query(Application)
+        .filter(
+            Application.id == id
+        )
+        .first()
+    )
+
+    if not application:
+        return {
+            "message":
+                "Không tìm thấy hồ sơ"
+        }
 
     application.status = "rejected"
 
     db.commit()
 
     return {
-        "message": "Đã từ chối"
+        "message":
+            "Đã từ chối"
     }
+
+
 @router.get("/user/{user_id}")
 def get_by_user(
     user_id: int,
     db: Session = Depends(get_db)
 ):
+
     return (
         db.query(Application)
         .filter(

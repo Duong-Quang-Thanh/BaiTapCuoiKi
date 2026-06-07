@@ -2,7 +2,31 @@ from fastapi import *
 from sqlalchemy.orm import *
 
 from database import SessionLocal
+from models import Major\
+
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+
+from database import get_db
 from models import Major
+
+router = APIRouter(
+    prefix="/majors",
+    tags=["Majors"]
+)
+
+@router.get("/university/{id}")
+def get_major_by_university(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    return (
+        db.query(Major)
+        .filter(
+            Major.university_id == id
+        )
+        .all()
+    )
 
 router = APIRouter(
     prefix="/majors",

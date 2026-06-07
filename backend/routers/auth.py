@@ -17,21 +17,31 @@ router = APIRouter(
     tags=["Auth"]
 )
 
+
 def get_db():
     db = SessionLocal()
+
     try:
         yield db
+
     finally:
         db.close()
+
+
 @router.post("/register")
 def register(
     data: dict,
     db: Session = Depends(get_db)
 ):
 
-    user = db.query(User).filter(
-        User.email == data["email"]
-    ).first()
+    user = (
+        db.query(User)
+        .filter(
+            User.email ==
+            data["email"]
+        )
+        .first()
+    )
 
     if user:
         raise HTTPException(
@@ -43,10 +53,10 @@ def register(
         full_name=data["full_name"],
         email=data["email"],
         phone=data["phone"],
-        role="student",
         password=hash_password(
             data["password"]
-        )
+        ),
+        role="student"
     )
 
     db.add(new_user)
@@ -56,15 +66,22 @@ def register(
     return {
         "message": "Đăng ký thành công"
     }
+
+
 @router.post("/login")
 def login(
     data: dict,
     db: Session = Depends(get_db)
 ):
 
-    user = db.query(User).filter(
-        User.email == data["email"]
-    ).first()
+    user = (
+        db.query(User)
+        .filter(
+            User.email ==
+            data["email"]
+        )
+        .first()
+    )
 
     if not user:
         raise HTTPException(
@@ -91,5 +108,7 @@ def login(
     return {
         "access_token": token,
         "role": user.role,
-        "full_name": user.full_name
+        "user_id": user.id,
+        "full_name": user.full_name,
+        "email": user.email
     }
