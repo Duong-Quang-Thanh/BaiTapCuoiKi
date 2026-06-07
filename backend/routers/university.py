@@ -1,72 +1,67 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
 
-from database import SessionLocal
-from models import University
+from backend.database import get_db
+from backend.models import University
 
 router = APIRouter(
     prefix="/universities",
     tags=["Universities"]
 )
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# ======================
+# SCHEMA
+# ======================
+class UniversityCreate(BaseModel):
+    name: str
 
 
-# Lấy danh sách trường
+# ======================
+# GET ALL UNIVERSITIES
+# ======================
 @router.get("/")
-def get_universities(
-    db: Session = Depends(get_db)
-):
-    return db.query(
-        University
-    ).all()
+def get_universities(db: Session = Depends(get_db)):
+    return db.query(University).all()
 
 
-# Thêm trường
+# ======================
+# CREATE UNIVERSITY
+# ======================
 @router.post("/")
 def create_university(
-    data: dict,
+    data: UniversityCreate,
     db: Session = Depends(get_db)
 ):
     university = University(
-        name=data["name"],
-        description=data.get(
-            "description",
-            ""
-        )
+        name=data.name
     )
 
     db.add(university)
     db.commit()
+    db.refresh(university)
 
     return {
-        "message": "Thêm thành công"
+        "message": "Thêm thành công",
+        "id": university.id
     }
 
 
-# Xóa trường
+# ======================
+# DELETE UNIVERSITY
+# ======================
 @router.delete("/{id}")
 def delete_university(
     id: int,
     db: Session = Depends(get_db)
 ):
-    university = (
-        db.query(University)
-        .filter(
-            University.id == id
-        )
-        .first()
-    )
+    university = db.query(University).filter(University.id == id).first()
 
     if not university:
-        return {
-            "message": "Không tìm thấy"
-        }
+        raise HTTPException(
+            status_code=404,
+            detail="Không tìm thấy"
+        )
 
     db.delete(university)
     db.commit()
@@ -74,37 +69,30 @@ def delete_university(
     return {
         "message": "Đã xóa"
     }
-# Cập nhật trường
+
+
+# ======================
+# UPDATE UNIVERSITY
+# ======================
 @router.put("/{id}")
 def update_university(
     id: int,
-    data: dict,
+    data: UniversityCreate,
     db: Session = Depends(get_db)
 ):
-    university = (
-        db.query(University)
-        .filter(
-            University.id == id
-        )
-        .first()
-    )
+    university = db.query(University).filter(University.id == id).first()
 
     if not university:
-        return {
-            "message": "Không tìm thấy"
-        }
-
-    university.name = data["name"]
-
-    university.description = (
-        data.get(
-            "description",
-            ""
+        raise HTTPException(
+            status_code=404,
+            detail="Không tìm thấy"
         )
-    )
+
+    university.name = data.name
 
     db.commit()
+    db.refresh(university)
 
     return {
-        "message": "Đã cập nhật"
+        "message": "Cập nhật thành công"
     }

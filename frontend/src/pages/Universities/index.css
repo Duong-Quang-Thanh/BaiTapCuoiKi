@@ -1,0 +1,41 @@
+.universities-container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.universities-container h1 {
+  color: #1890ff;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.universities-container .ant-card {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.universities-container .ant-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.universities-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.universities-container li {
+  padding: 8px 12px;
+  background-color: #f0f2f5;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  border-left: 3px solid #1890ff;
+  padding-left: 15px;
+}
+
+.universities-container li:hover {
+  background-color: #e6f7ff;
+}

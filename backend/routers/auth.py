@@ -1,47 +1,66 @@
-from fastapi import APIRouter
-from fastapi import Depends
-from fastapi import HTTPException
-
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
 
-from database import SessionLocal
-from models import User
+from backend.database import SessionLocal
+from backend.models import User
+from backend.hash import hash_password, verify_password
+from backend.security import create_access_token
 
-from hash import hash_password
-from hash import verify_password
-
-from security import create_access_token
 
 router = APIRouter(
     prefix="/auth",
     tags=["Auth"]
 )
 
-
+# ======================
+# DB DEPENDENCY
+# ======================
 def get_db():
     db = SessionLocal()
-
     try:
         yield db
-
     finally:
         db.close()
 
 
-@router.post("/register")
+# ======================
+# SCHEMAS
+# ======================
+class RegisterRequest(BaseModel):
+    full_name: str
+    email: str
+    phone: str
+    password: str
+
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class RegisterResponse(BaseModel):
+    message: str
+
+
+class LoginResponse(BaseModel):
+    access_token: str
+    role: str
+    user_id: int
+    full_name: str
+    email: str
+
+
+# ======================
+# REGISTER
+# ======================
+@router.post("/register", response_model=RegisterResponse)
 def register(
-    data: dict,
+    data: RegisterRequest,
     db: Session = Depends(get_db)
 ):
-
-    user = (
-        db.query(User)
-        .filter(
-            User.email ==
-            data["email"]
-        )
-        .first()
-    )
+    # check email exists
+    user = db.query(User).filter(User.email == data.email).first()
 
     if user:
         raise HTTPException(
@@ -50,38 +69,31 @@ def register(
         )
 
     new_user = User(
-        full_name=data["full_name"],
-        email=data["email"],
-        phone=data["phone"],
-        password=hash_password(
-            data["password"]
-        ),
+        full_name=data.full_name,
+        email=data.email,
+        phone=data.phone,
+        password=hash_password(data.password),
         role="student"
     )
 
     db.add(new_user)
-
     db.commit()
+    db.refresh(new_user)
 
     return {
         "message": "Đăng ký thành công"
     }
 
 
-@router.post("/login")
+# ======================
+# LOGIN
+# ======================
+@router.post("/login", response_model=LoginResponse)
 def login(
-    data: dict,
+    data: LoginRequest,
     db: Session = Depends(get_db)
 ):
-
-    user = (
-        db.query(User)
-        .filter(
-            User.email ==
-            data["email"]
-        )
-        .first()
-    )
+    user = db.query(User).filter(User.email == data.email).first()
 
     if not user:
         raise HTTPException(
@@ -89,21 +101,16 @@ def login(
             detail="Sai tài khoản"
         )
 
-    if not verify_password(
-        data["password"],
-        user.password
-    ):
+    if not verify_password(data.password, user.password):
         raise HTTPException(
             status_code=401,
             detail="Sai mật khẩu"
         )
 
-    token = create_access_token(
-        {
-            "id": user.id,
-            "role": user.role
-        }
-    )
+    token = create_access_token({
+        "id": user.id,
+        "role": user.role
+    })
 
     return {
         "access_token": token,

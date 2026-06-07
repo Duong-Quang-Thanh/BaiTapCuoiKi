@@ -1,19 +1,17 @@
 import API from './api';
 
-export const getUniversities = () =>
-  API.get('/universities');
+export interface University {
+  id: number;
+  name: string;
+}
 
-export const createUniversity = (
-  data: any,
-) =>
-  API.post(
-    '/universities',
-    data,
-  );
+export const getUniversities = async (): Promise<University[]> => {
+  const response = await API.get('/universities');
+  return response.data;
+};
 
-export const deleteUniversity = (
-  id: number,
-) =>
-  API.delete(
-    `/universities/${id}`,
-  );
+export const createUniversity = (data: any) =>
+  API.post('/universities', data);
+
+export const deleteUniversity = (id: number) =>
+  API.delete(`/universities/${id}`);

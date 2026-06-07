@@ -7,6 +7,11 @@ export function onRouteChange({
   const token =
     localStorage.getItem('token');
 
+  // Allow public access to universities page
+  if (location.pathname === '/universities') {
+    return;
+  }
+
   if (
     location.pathname !== '/' &&
     location.pathname !== '/register'

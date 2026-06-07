@@ -1,11 +1,20 @@
 import API from './api';
 
-export const getMajors =
-  () => API.get('/majors');
+export interface Major {
+  id: number;
+  university_id: number;
+  name: string;
+}
 
-export const createMajor =
-  (data: any) =>
-    API.post(
-      '/majors',
-      data
-    );
+export const getMajors = async (): Promise<Major[]> => {
+  const response = await API.get('/majors');
+  return response.data;
+};
+
+export const getMajorsByUniversity = async (universityId: number): Promise<Major[]> => {
+  const response = await API.get(`/majors/university/${universityId}`);
+  return response.data;
+};
+
+export const createMajor = (data: any) =>
+  API.post('/majors', data);

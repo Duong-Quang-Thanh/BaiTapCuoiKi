@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = "mysql+pymysql://root:password@localhost/admission_system"
+DATABASE_URL = "mysql+pymysql://root:tHanhduong231@localhost/admission_system"
 
 engine = create_engine(DATABASE_URL)
 
@@ -12,3 +12,11 @@ SessionLocal = sessionmaker(
 )
 
 Base = declarative_base()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
