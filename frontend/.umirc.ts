@@ -6,6 +6,12 @@ export default defineConfig({
   routes: [
     {
   path:
+    '/admin/majors',
+  component:
+    '@/pages/Admin/Major',
+  },
+    {
+  path:
     '/student/applications',
   component:
     '@/pages/Student/MyApplications',
@@ -39,5 +45,6 @@ export default defineConfig({
   component:
     '@/pages/Student/MyApplications',
     }
+    
   ],
 });

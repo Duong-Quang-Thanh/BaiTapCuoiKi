@@ -26,6 +26,23 @@ export default function Student() {
   universities,
   setUniversities,
 ] = useState<any[]>([]);
+  const [
+    majors,
+    setMajors,
+  ] = useState<any[]>([]);
+  const loadMajors =
+  async (
+    universityId: number
+  ) => {
+    const res =
+      await API.get(
+        `/majors/university/${universityId}`
+      );
+
+    setMajors(
+      res.data
+    );
+  };
 
 useEffect(() => {
   loadUniversities();
@@ -129,10 +146,24 @@ const loadUniversities =
         layout="vertical"
         onFinish={onFinish}
       >
-        <Form.Item
-  label="Trường"
-  name="university_name"
->
+      <Select
+  placeholder="Chọn trường"
+  onChange={(
+    value,
+    option: any
+  ) => {
+    loadMajors(
+      option.id
+    );
+  }}
+  options={universities.map(
+    (u: any) => ({
+      label: u.name,
+      value: u.name,
+      id: u.id,
+    })
+  )}
+/>
   <Select
     placeholder="Chọn trường"
     options={universities.map(
@@ -142,14 +173,22 @@ const loadUniversities =
       })
     )}
   />
-</Form.Item>
+
 
         <Form.Item
-          label="Ngành"
-          name="major_name"
-        >
-          <Input />
-        </Form.Item>
+  label="Ngành"
+  name="major_name"
+>
+  <Select
+    placeholder="Chọn ngành"
+    options={majors.map(
+      (m: any) => ({
+        label: m.name,
+        value: m.name,
+      })
+    )}
+  />
+</Form.Item>
 
         <Form.Item
           label="Điểm xét tuyển"

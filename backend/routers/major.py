@@ -37,3 +37,44 @@ def get_by_university(
         )
         .all()
     )
+@router.delete("/{id}")
+def delete_major(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    major = (
+        db.query(Major)
+        .filter(
+            Major.id == id
+        )
+        .first()
+    )
+
+    if major:
+        db.delete(major)
+        db.commit()
+
+    return {
+        "message": "Deleted"
+    }
+@router.put("/{id}")
+def update_major(
+    id: int,
+    data: dict,
+    db: Session = Depends(get_db)
+):
+    major = (
+        db.query(Major)
+        .filter(
+            Major.id == id
+        )
+        .first()
+    )
+
+    major.name =data["name"]
+
+    db.commit()
+
+    return {
+        "message": "Updated"
+    }

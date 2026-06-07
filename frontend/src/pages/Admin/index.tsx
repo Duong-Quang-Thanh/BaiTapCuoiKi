@@ -199,6 +199,15 @@ export default function Admin() {
         >
           Quản lý Trường
         </Button>
+
+        <Button
+          onClick={() => {
+            window.location.href =
+              '/admin/majors';
+          }}
+        >
+          Quản lý Ngành
+        </Button>
       </div>
 
       <Statistics
