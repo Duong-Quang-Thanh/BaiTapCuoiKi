@@ -26,3 +26,33 @@ class Application(Base):
     )
 
     note = Column(Text)
+class University(Base):
+    __tablename__ = "universities"
+
+    id = Column(
+        Integer,
+        primary_key=True
+    )
+
+    name = Column(
+        String(255)
+    )
+
+    description = Column(
+        Text
+    )
+class Major(Base):
+    __tablename__ = "majors"
+
+    id = Column(
+        Integer,
+        primary_key=True
+    )
+
+    university_id = Column(
+        Integer
+    )
+
+    name = Column(
+        String(255)
+    )

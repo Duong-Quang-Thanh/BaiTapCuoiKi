@@ -6,10 +6,12 @@ from routers import application
 from routers import admin
 from fastapi.staticfiles import StaticFiles
 import os
-
+from routers.university import router as university_router
 app = FastAPI()
 
-
+app.include_router(
+    university_router
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
