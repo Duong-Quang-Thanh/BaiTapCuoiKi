@@ -5,6 +5,17 @@ export default defineConfig({
 
   routes: [
     {
+  path:
+    '/student/applications',
+  component:
+    '@/pages/Student/MyApplications',
+    },
+    {
+  path: '/admin/universities',
+  component:
+    '@/pages/Admin/University',
+    },
+    {
       path: '/',
       component: '@/pages/Login',
     },
@@ -20,5 +31,13 @@ export default defineConfig({
       path: '/admin',
       component: '@/pages/Admin',
     },
+    
+
+    {
+  path:
+    '/student/applications',
+  component:
+    '@/pages/Student/MyApplications',
+    }
   ],
 });

@@ -13,17 +13,6 @@ import {
 import Statistics from './Statistics';
 import API from '@/services/api';
 
-<Button
-  type="primary"
-  onClick={() => {
-    window.open(
-      'http://127.0.0.1:8001/admin/export'
-    );
-  }}
->
-  Xuất Excel
-</Button>
-
 export default function Admin() {
   const [data, setData] =
     useState<any[]>([]);
@@ -42,9 +31,10 @@ export default function Admin() {
 
   const loadData = async () => {
     try {
-      const res = await API.get(
-        '/applications',
-      );
+      const res =
+        await API.get(
+          '/applications',
+        );
 
       setData(res.data);
 
@@ -186,6 +176,8 @@ export default function Admin() {
       <div
         style={{
           marginBottom: 20,
+          display: 'flex',
+          gap: 10,
         }}
       >
         <Button
@@ -197,6 +189,15 @@ export default function Admin() {
           }}
         >
           Xuất Excel
+        </Button>
+
+        <Button
+          onClick={() => {
+            window.location.href =
+              '/admin/universities';
+          }}
+        >
+          Quản lý Trường
         </Button>
       </div>
 

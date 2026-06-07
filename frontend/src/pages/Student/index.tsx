@@ -5,19 +5,49 @@ import {
   Button,
   Upload,
   message,
+  Select,
 } from 'antd';
 
 import {
   UploadOutlined,
 } from '@ant-design/icons';
 
-import { useState } from 'react';
+import {
+  useState,
+  useEffect,
+} from 'react';
 
 import API from '@/services/api';
 
 export default function Student() {
   const [filePath, setFilePath] =
     useState('');
+  const [
+  universities,
+  setUniversities,
+] = useState<any[]>([]);
+
+useEffect(() => {
+  loadUniversities();
+}, []);
+
+const loadUniversities =
+  async () => {
+    try {
+      const res =
+        await API.get(
+          '/universities'
+        );
+
+      setUniversities(
+        res.data
+      );
+    } catch {
+      message.error(
+        'Không tải được danh sách trường'
+      );
+    }
+  };
 
   const uploadProps = {
     customRequest: async (
@@ -83,17 +113,36 @@ export default function Student() {
           'name',
         )}
       </h2>
+      <Button
+  style={{
+    marginBottom: 20,
+  }}
+  onClick={() => {
+    window.location.href =
+      '/student/applications';
+  }}
+>
+  Hồ sơ của tôi
+</Button>
 
       <Form
         layout="vertical"
         onFinish={onFinish}
       >
         <Form.Item
-          label="Trường"
-          name="university_name"
-        >
-          <Input />
-        </Form.Item>
+  label="Trường"
+  name="university_name"
+>
+  <Select
+    placeholder="Chọn trường"
+    options={universities.map(
+      (u: any) => ({
+        label: u.name,
+        value: u.name,
+      })
+    )}
+  />
+</Form.Item>
 
         <Form.Item
           label="Ngành"

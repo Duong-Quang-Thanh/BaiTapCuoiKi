@@ -133,3 +133,16 @@ def reject_application(
     return {
         "message": "Đã từ chối"
     }
+@router.get("/user/{user_id}")
+def get_by_user(
+    user_id: int,
+    db: Session = Depends(get_db)
+):
+    return (
+        db.query(Application)
+        .filter(
+            Application.user_id
+            == user_id
+        )
+        .all()
+    )

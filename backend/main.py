@@ -40,3 +40,10 @@ app.mount(
     StaticFiles(directory="uploads"),
     name="uploads"
 )
+from routers.major import (
+    router as major_router
+)
+
+app.include_router(
+    major_router
+)
